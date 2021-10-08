@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,69 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Covid-19</title>
 </head>
+
 <body>
+    <div class="container">
+        <div class="title">
+            <h3>Covid-19 STATISTICS</h3>
+        </div>
+        <br>
+        <div class='main'>
+            <div class="statisticbox">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="inputs">
+                <input type="button" value="Asia" class="asia btn1" id="asia">
+                <input type="button" value="Africa" class="africa btn1" id="africa">
+                <input type="button" value="Americas" class="america btn1" id="america">
+                <input type="button" value="Europe" class="europe btn1" id="europe">
+                <input type="button" value="Oceania" class="oceania btn1" id='oceania'>
+            </div>
+        </div>
+        <div class="cases">
+            <input type="button" value="Confirmed " class="condition btn">
+            <input type="button" value="Deaths" class="death btn">
+            <input type="button" value="Recovered" class="recovered btn">
+            <input type="button" value="Critical Condition" class="condition btn">
+        </div>
+        <br>
+        <div class="mainselect">
+            <form action="">
+                <select name="selsctContrise" id="selsctContrise">
+                    <option value="aaa">aaa</option>
+                </select>
+            </form>
+        </div>
+        <div class="numbers">
+            <div class="totalCases box">
+                <p>Total Cases</p>
+                <span>00</span>
+            </div>
+            <div class="newCases box">
+                <p>New Cases</p>
+                <span>00</span>
+            </div>
+            <div class="totaldeath box">
+                <p>Total Death</p>
+                <span>00</span>
+            </div>
+            <div class="newdeath box">
+                <p>New Death</p>
+                <span>00</span>
+            </div>
+            <div class="totalrecoverd box">
+                <p>Total Recovered</p>
+                <span>00</span>
+            </div>
+            <div class="criticalcondition box">
+                <p>Critical Condition</p>
+                <span>00</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/index.js"></script>
+
 </body>
+
 </html>

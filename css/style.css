@@ -1,0 +1,94 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    top: 0;
+    padding: 0;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+ /* 1   background-color: blue; */
+}
+.container{
+    width: 100vw;
+    height: 100vh;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: blueviolet; */
+}
+.title{
+   top: 0;
+   font-size: 20px;
+   letter-spacing: 2px;
+}
+.main{
+   display: flex;
+}
+
+.inputs{
+    height: 20vh;
+    width: 6vw; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.btn1{
+    height: 10vh;
+    min-width: 10vw;
+    font-size: 14px;
+    margin-bottom: 5vh;
+    background: skyblue;
+    border: 1px skyblue solid;  
+}
+
+.statisticbox{
+    border: 1px black solid;
+    width: 80vw;
+    height: 60vh; 
+}
+#myChart{
+    position: relative;
+}
+.cases{
+   height: 20%;
+   width: 80%; 
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+}
+.btn{
+    width: 15%;
+    height: 50%;
+    font-size: 16px;
+    background: skyblue;
+    border: 1px skyblue solid;
+}
+.btn:hover{
+  opacity: 0.8;
+}
+select{
+    border: 0 none;
+    color: #FFFFFF;
+    background: transparent;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 8px;
+    width: 350px;
+    *width: 350px;
+   
+}
+.mainselect{
+  width: 350px;
+  box-shadow: 1px 1px 11px skyblue;
+}
+.numbers{
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
