@@ -39,14 +39,16 @@ body{
 }
 .btn1{
     height: 10vh;
-    width: 10vw;
+    width: 8vw;
     font-size: 16px;
     font-weight: 200;
     margin-bottom: 5vh;
     background: skyblue;
     border: 1px skyblue solid;  
 }
-
+.btn1:hover{
+    opacity: 0.8;
+  }
 .statisticbox{
     border: 1px black solid;
     width: 80vw;
@@ -109,4 +111,23 @@ body{
     justify-content: center;
     align-items: center;
 }
-
+.selectcontainer{
+    /* background-color: aqua; */
+    width: 100vw;
+   /* height: 70vh; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#Country{
+    width: 30vw;
+    height: 4vh;
+    border-color: skyblue;
+    font-size: 16px;
+}
+#selectbtn{
+    width: 10vw;
+    height: 4vh;
+    border-color: skyblue;
+    font-size: 16px;  
+}

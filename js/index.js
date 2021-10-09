@@ -1,16 +1,27 @@
 let coronaURL = 'https://corona-api.com/countries'
-let countriesURl = 'https://cors-anywhere.herokuapp.com/https://restcountries.herokuapp.com/api/v1'
-//let countriesURl = 'https://restcountries.herokuapp.com/api/v1'
-let countriesResult, covidDataResult, chosenContinent, graphObject;
+let countriesURl = 'https://api.allorigins.win/raw?url=https://restcountries.herokuapp.com/api/v1'
+
+let chosenContinent, graphObject, chosenCase;
+
 const asia = document.querySelector('#asia'),
     africa = document.querySelector('#africa'),
     america = document.querySelector('#america'),
     europe = document.querySelector('#europe'),
     oceania = document.querySelector('#oceania'),
-    CountriesContainer = document.querySelector('.CountriesContainer')
-
+    CountriesContainer = document.querySelector('.CountriesContainer'),
+    selectbtn = document.querySelector('#selectbtn'),
+    Country = document.querySelector('#Country'),
+    confirmed = document.querySelector('.confirmed'),
+    death = document.querySelector('.death'),
+    recovered = document.querySelector('.recovered'),
+    critical = document.querySelector('.condition'),
+    totalCases = document.querySelector('.totalCases'),
+    totaldeath = document.querySelector('.totaldeath'),
+    totalrecoverd = document.querySelector('.totalrecoverd'),
+    criticalcondition = document.querySelector('.criticalcondition');
 
 async function getCountries() {
+    if(!window.localStorage.getItem('countries')){
     let countries = await ((await fetch(countriesURl)).json())
     countries = countries.map(element => {
         return {
@@ -18,30 +29,28 @@ async function getCountries() {
             region: element.region
         }
     })
-    window.sessionStorage.setItem('countries', JSON.stringify(countries))
-    //return countries;
-    //let mahde = JSON.parse(sessionStorage.getItem('countries')) //USE THIS IN OTHER CODE
+    window.localStorage.setItem('countries', JSON.stringify(countries))
 }
+}
+
 async function getCOVIDData() {
+    if(!window.localStorage.getItem('covidData')){
     let covidData = (await ((await fetch(coronaURL)).json())).data;
     covidData = covidData.map(element => {
         return {
             name: element.name,
-            population: element.population,
             critical: element.latest_data.critical,
             deaths: element.latest_data.deaths,
             recovered: element.latest_data.recovered,
             confirmed: element.latest_data.confirmed
         }
     })
-    window.sessionStorage.setItem('covidData', JSON.stringify(covidData))
-    //return covidData;
-    //let mahde = JSON.parse(sessionStorage.getItem('countries')) //USE THIS IN OTHER CODE
+    window.localStorage.setItem('covidData', JSON.stringify(covidData))
 }
-console.log(countriesResult);
+}
+
 function getContinent(continentIWant, typeOfStatistic) {
     let arrayOfCountriesCovidData = [], arrayOfCountriesNames = [];
-    console.log(countriesResult);
     for (let i = 0; i < countriesResult.length; i++) {
         if (countriesResult[i].region == continentIWant) {
             for (let j = 0; j < covidDataResult.length; j++)
@@ -54,12 +63,21 @@ function getContinent(continentIWant, typeOfStatistic) {
     return { arrayOfCountriesNames, arrayOfCountriesCovidData }
 }
 
-function buildChart(charttype, continent, statistictype) {
+function selectScroll(region) {
+    Country.innerHTML = '';
+    let countries = (getContinent(region, 'confirmed')['arrayOfCountriesNames'])
+    countries.forEach(element => {
+        Country.innerHTML += `<option value='${element}'>${element}</option>`
+    })
+}
+
+
+function buildChart(continent, statistictype = 'confirmed') {
     let dataRes = getContinent(continent, statistictype)
     if (graphObject)
         graphObject.destroy()
     graphObject = new Chart(document.querySelector('#myChart'), {
-        type: charttype,
+        type: 'line',
         data: {
             labels: dataRes.arrayOfCountriesNames,
             datasets: [{
@@ -72,61 +90,96 @@ function buildChart(charttype, continent, statistictype) {
             }]
         },
         options: {
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    ticks: {
+                        autoSkip: false,
+
+
+                    }
+                }
+            }
         }
     })
 }
-// async function pastCountries() {
-//     CountriesContainer.textContent = ''
-// }
-async function run() {
-     await getCountries()
-     await getCOVIDData()
-    countriesResult = JSON.parse(sessionStorage.getItem('countries'))
-    covidDataResult = JSON.parse(sessionStorage.getItem('covidData'))
-    console.log(countriesResult);
-    console.log(covidDataResult);
-}
 
-asia.addEventListener('click', async function () {
-    await run()
-    buildChart('line', 'Asia', 'confirmed')
+
+asia.addEventListener('click', () => {
+    totalCases.innerHTML=totaldeath.innerHTML=totalrecoverd.innerHTML=criticalcondition.innerHTML=''
+    selectScroll('Asia');
+    buildChart('Asia', chosenCase)
     chosenContinent = 'Asia';
 })
-africa.addEventListener('click', async function () {
-    await run()
-    buildChart('line', 'Africa', 'confirmed')
+africa.addEventListener('click', function () {
+    totalCases.innerHTML=totaldeath.innerHTML=totalrecoverd.innerHTML=criticalcondition.innerHTML=''
+    buildChart('Africa', chosenCase)
     chosenContinent = 'Africa';
+   selectScroll('Africa')
 })
-america.addEventListener('click', async function () {
-    await run()
-    buildChart('line', 'America', 'confirmed')
-    chosenContinent = 'America';
+america.addEventListener('click', function () {
+    totalCases.innerHTML=totaldeath.innerHTML=totalrecoverd.innerHTML=criticalcondition.innerHTML=''
+    buildChart('Americas', chosenCase)
+    chosenContinent = 'Americas';
+    selectScroll('America')
 })
-europe.addEventListener('click', async function () {
-    await run()
-    buildChart('line', 'Europe', 'confirmed')
+europe.addEventListener('click', function () {
+    totalCases.innerHTML=totaldeath.innerHTML=totalrecoverd.innerHTML=criticalcondition.innerHTML=''
+    buildChart('Europe', chosenCase)
     chosenContinent = 'Europe';
+    selectScroll('Europe')
 })
-oceania.addEventListener('click', async function () {
-    await run()
-    buildChart('line', 'Oceania', 'confirmed')
+oceania.addEventListener('click', function () {
+    totalCases.innerHTML=totaldeath.innerHTML=totalrecoverd.innerHTML=criticalcondition.innerHTML=''
+    buildChart('Oceania', chosenCase)
     chosenContinent = 'Oceania';
+    selectScroll('Oceania')
 })
 
-// document.querySelector('.condition').addEventListener('click',async(chosenContinent)=>{
-//     await run()
-//     buildChart('line', chosenContinent, 'condition')
-// })
-// document.querySelector('.death').addEventListener('click',async(chosenContinent)=>{
-//     await run()
-//     buildChart('line', chosenContinent, 'deaths')
-// })
-// document.querySelector('.recovered').addEventListener('click',async(chosenContinent)=>{
-//     await run()
-//     buildChart('line', chosenContinent, 'recovered')
-// })
-// document.querySelector('.confirmed').addEventListener('click',async(chosenContinent)=>{
-//     await run()
-//     buildChart('line', chosenContinent, 'confirmed')
-// })
+confirmed.addEventListener('click', function () {
+    buildChart(chosenContinent, 'confirmed');
+    chosenCase = 'confirmed';
+
+})
+death.addEventListener('click', () => {
+    buildChart(chosenContinent, 'deaths')
+    chosenCase = 'deaths'
+})
+recovered.addEventListener('click', () => {
+    buildChart(chosenContinent, 'recovered')
+    chosenCase = 'recovered'
+})
+critical.addEventListener('click', () => {
+    buildChart(chosenContinent, 'critical')
+    chosenCase = 'critical'
+})
+
+Country.addEventListener("change",(e)=>{
+     console.log(e.target.value)
+     for(let i=0;i<covidDataResult.length;i++){
+         if(e.target.value==covidDataResult[i].name){
+             console.log(covidDataResult[i])
+             totalCases.innerHTML=covidDataResult[i].confirmed
+             totaldeath.innerHTML=covidDataResult[i].deaths
+             totalrecoverd.innerHTML=covidDataResult[i].recovered
+             criticalcondition.innerHTML=covidDataResult[i].critical
+         }
+     }
+ });
+window.onload= async function(){
+    await getCOVIDData()
+    await getCountries()
+    countriesResult = JSON.parse(localStorage.getItem('countries'))
+    covidDataResult = JSON.parse(localStorage.getItem('covidData')) 
+    buildChart('Asia');
+    selectScroll('Asia');
+    for(let i=0;i<covidDataResult.length;i++){
+        if('Afghanistan' == covidDataResult[i].name){
+            console.log(covidDataResult[i])
+            totalCases.innerHTML=covidDataResult[i].confirmed
+            totaldeath.innerHTML=covidDataResult[i].deaths
+            totalrecoverd.innerHTML=covidDataResult[i].recovered
+            criticalcondition.innerHTML=covidDataResult[i].critical
+        }
+    }
+}

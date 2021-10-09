@@ -27,55 +27,45 @@
                 <input type="button" value="Oceania" class="oceania btn1" id='oceania'>
             </div>
         </div>
-        <br>
         <div class="cases">
-            <input type="button" value="Confirmed " class="condition btn">
+            <input type="button" value="Confirmed " class="confirmed btn">
             <input type="button" value="Deaths" class="death btn">
             <input type="button" value="Recovered" class="recovered btn">
             <input type="button" value="Critical Condition" class="condition btn">
         </div>
         <br>
+        <div class="selectcontainer">
+            <form action="">
+                <select name="Country" id="Country"></select>
+                <!-- <input type="submit" value="Impress Me" id="selectbtn"> -->
+            </form>
+        </div>
         <br>
         <div class="numbers">
-            <div class="totalCases box">
+            <div class=" box">
                 <div class="one">
                     <p>Total Cases</p>
                 </div>
-                <div class="two"><span>00</span></div>
+                <div class="two"><span class="totalCases">00</span></div>
             </div>
-            <div class="newCases box">
-                <div class="one">
-                    <p>New Cases</p>
-                </div>
-                <div class="two"> <span>00</span></div>
-            </div>
-            <div class="totaldeath box">
+            <div class=" box">
                 <div class="one">
                     <p>Total Death</p>
                 </div>
-                <div class="two"><span>00</span></div>
+                <div class="two"><span class="totaldeath">00</span></div>
             </div>
-            <div class="newdeath box">
-                <div class="one">
-                    <p>New Death</p>
-                </div>
-                <div class="two"><span>00</span></div>
-            </div>
-            <div class="totalrecoverd box">
+            <div class="box">
                 <div class="one">
                     <p>Total Recovered</p>
                 </div>
-                <div class="two"><span>00</span></div>
+                <div class="two"><span class="totalrecoverd">00</span></div>
             </div>
-            <div class="criticalcondition box">
+            <div class=" box">
                 <div class="one">
                     <p>Critical Condition</p>
                 </div>
-                <div class="two"> <span>00</span></div>
+                <div class="two"> <span class="criticalcondition">00</span></div>
             </div>
-        </div>
-        <div class="CountriesContainer">
-            //countries name
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
